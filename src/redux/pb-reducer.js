@@ -17,7 +17,16 @@ import {
 const items = createReducer([], {
     [fetchContactsSucces]: (state, action) => action.payload,
 
-    [addContactsSucces]: (state, action) => [action.payload, ...state],
+    [addContactsSucces]: (state, action) => {
+        
+        const contactName = state.map(contact => contact.name.toLowerCase());
+        console.log(contactName)
+        if (contactName.includes(action.payload.name.toLowerCase())) {
+            return alert('!!!!!!')
+        };
+        
+        return ([action.payload, ...state])
+    } ,
 
     [deleteContactsSucces]: (state, action) => state.filter(contact => contact.id !== action.payload),
 });
